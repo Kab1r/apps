@@ -53,6 +53,13 @@ env:
 
 additionalContainers:
   notify-push:
+    image: '{{ include "tc.common.images.selector" . }}'
+    imagePullPolicy: '{{ .Values.image.pullPolicy }}'
+    securityContext:
+      "{{- tpl ( toYaml .Values.securityContext ) $ | nindent 4 }}"
+    volumeMounts:
+      '{{- (include "tc.common.controller.volumeMounts" . | trim) | nindent 4 }}'
+    cmd: ["sh /hbp.sh"]
     env:
       NEXTCLOUD_URL: 'http://{{ include "tc.common.names.fullname" . }}'
       TRUSTED_PROXIES: "{{ .Values.env.TRUSTED_PROXIES }}"
@@ -75,13 +82,6 @@ additionalContainers:
         secretKeyRef:
           name: rediscreds
           key: redis-password
-    image: '{{ include "tc.common.images.selector" . }}'
-    imagePullPolicy: '{{ .Values.image.pullPolicy }}'
-    securityContext:
-      "{{- tpl ( toYaml .Values.securityContext ) $ | nindent 4 }}"
-    volumeMounts:
-      '{{- (include "tc.common.controller.volumeMounts" . | trim) | nindent 4 }}'
-    cmd: ["/var/www/html/custom_apps/notify_push/bin/x86_64/notify_push /var/www/html/config/config.php"]
 
 
 envFrom:
