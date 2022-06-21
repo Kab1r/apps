@@ -52,9 +52,9 @@ env:
       key: redis-password
 
 additionalContainers:
-  notify_push:
+  notify-push:
     env:
-      NEXTCLOUD_URL: "http://{{ include "tc.common.names.fullname" . }}"
+      NEXTCLOUD_URL: 'http://{{ include "tc.common.names.fullname" . }}'
       TRUSTED_PROXIES: "{{ .Values.env.TRUSTED_PROXIES }}"
       NEXTCLOUD_DATA_DIR: "{{ .Values.env.NEXTCLOUD_DATA_DIR }}"
       POSTGRES_DB: "{{ .Values.postgresql.postgresqlDatabase }}"
@@ -75,16 +75,15 @@ additionalContainers:
         secretKeyRef:
           name: rediscreds
           key: redis-password
-    image: {{ include "tc.common.images.selector" . }}
-    imagePullPolicy: {{ .Values.image.pullPolicy }}
-    {{- with .Values.securityContext }}
+    image: '{{ include "tc.common.images.selector" . }}'
+    imagePullPolicy: '{{ .Values.image.pullPolicy }}'
     securityContext:
-      {{- tpl ( toYaml . ) $ | nindent 4 }}
-    {{- end }}
-    {{- with (include "tc.common.controller.volumeMounts" . | trim) }}
+      "{{- tpl ( toYaml .Values.securityContext ) $ | nindent 4 }}"
     volumeMounts:
-      {{ nindent 4 . }}
-    {{- end }}
+      '{{- (include "tc.common.controller.volumeMounts" . | trim) | nindent 4 }}'
+    cmd: ["/var/www/html/custom_apps/notify_push/bin/x86_64/notify_push /var/www/html/config/config.php"]
+
+
 
 envFrom:
   - configMapRef:
