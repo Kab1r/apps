@@ -5,7 +5,7 @@ image:
 
 nginxImage:
   repository: tccr.io/truecharts/nginx
-  tag: v1.22.0@sha256:9829252d9891aa3dfc654df8a98f65567ca8b43683e3ef2898944bc44287aeef
+  tag: v1.22.0@sha256:7b4f72373b447b31c5ff38a96f09bf6da39ac3400b5e6ecaeeb51434b3fe0139
 
 securityContext:
   readOnlyRootFilesystem: false
