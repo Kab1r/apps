@@ -61,10 +61,10 @@ questions:
                             description: "This port exposes the container port on the service"
                             schema:
                               type: int
-                              default: 10107
+                              default: 10106
                               required: true
-        - variable: api
-          label: "API Service"
+        - variable: web
+          label: "Web Service"
           description: "The Primary service on which the healthcheck runs, often the webUI"
           schema:
             additional_attrs: true
@@ -72,8 +72,8 @@ questions:
             attrs:
 # Include{serviceSelectorLoadBalancer}
 # Include{serviceSelectorExtras}
-                    - variable: api
-                      label: "API Service Port Configuration"
+                    - variable: web
+                      label: "Web Service Port Configuration"
                       schema:
                         additional_attrs: true
                         type: dict
@@ -83,7 +83,7 @@ questions:
                             description: "This port exposes the container port on the service"
                             schema:
                               type: int
-                              default: 10106
+                              default: 10107
                               required: true
 # Include{serviceExpertRoot}
 # Include{serviceExpert}
@@ -109,8 +109,8 @@ questions:
 # Include{ingressTLS}
 # Include{ingressTraefik}
 # Include{ingressAdvanced}
-        - variable: api
-          label: "API Ingress"
+        - variable: web
+          label: "Web Ingress"
           schema:
             additional_attrs: true
             type: dict

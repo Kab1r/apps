@@ -6,17 +6,17 @@ service:
   main:
     ports:
       main:
-        port: 10107
-        targetPort: 10107
-  api:
+        port: 10106
+        targetPort: 10106
+  web:
     enabled: true
     ports:
-      api:
+      web:
         enabled: true
-        targetPort: 10106
-        port: 10106
+        targetPort: 10107
+        port: 10107
 ingress:
-  api:
+  web:
     autoLink: true
 persistence:
   config:
